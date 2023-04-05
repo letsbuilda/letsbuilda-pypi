@@ -56,10 +56,19 @@ class PyPIServices:
     PACKAGE_UPDATES_FEED_URL: Final[str] = "https://pypi.org/rss/updates.xml"
 
     def __init__(self, http_session: ClientSession | None = None) -> None:
-        self.http_session = http_session or ClientSession()
-        finalize(self, self._kill)
+        self.http_session = http_session
 
-    def _kill(self):
+        self.__param_session = True
+        if not http_session:
+            self.http_session = self.__create_session()
+        finalize(self, self.__kill)
+
+    def __create_session(self):
+        async def create():
+            return ClientSession()
+        return run(create())
+
+    def __kill(self):
         run(self.http_session.close())
 
     async def get_new_packages_feed(self) -> list[NewPackageMetadata]:
