@@ -4,7 +4,9 @@ A wrapper for PyPI's API and RSS feed
 
 from dataclasses import dataclass
 from datetime import datetime
+from weakref import finalize
 from typing import Final
+from asyncio import run
 
 import xmltodict
 from aiohttp import ClientSession
@@ -55,6 +57,10 @@ class PyPIServices:
 
     def __init__(self, http_session: ClientSession | None = None) -> None:
         self.http_session = http_session or ClientSession()
+        finalize(self, self._kill)
+
+    def _kill(self):
+        run(self.http_session.close())
 
     async def get_new_packages_feed(self) -> list[NewPackageMetadata]:
         """Get the new packages RSS feed"""
