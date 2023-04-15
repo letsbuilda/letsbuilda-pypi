@@ -1,6 +1,6 @@
 [project]
 name = "letsbuilda-pypi"
-version = "1.0.0"
+version = "2.0.0"
 description = "A wrapper for PyPI's API and RSS feed"
 authors = [
     { name = "Bradley Reynolds", email = "bradley.reynolds@darbia.dev" },

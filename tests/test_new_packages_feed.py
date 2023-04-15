@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from letsbuilda.pypi import NewPackageMetadata
+from letsbuilda.pypi import PackageMetadata
 
 
 def test_parse_publication_date() -> None:
@@ -15,7 +15,7 @@ def test_parse_publication_date() -> None:
         "author": "test-author@example.com",
         "pubDate": "Wed, 29 Mar 2023 21:30:05 GMT",
     }
-    parsed_data = NewPackageMetadata.build_from(data)
+    parsed_data = PackageMetadata.build_from(data)
     assert parsed_data.publication_date == datetime(2023, 3, 29, 21, 30, 5)
 
 
@@ -28,7 +28,7 @@ def test_author_missing() -> None:
         "description": "a test package",
         "pubDate": "Wed, 29 Mar 2023 21:30:05 GMT",
     }
-    parsed_data = NewPackageMetadata.build_from(data)
+    parsed_data = PackageMetadata.build_from(data)
     assert parsed_data.author is None
 
 
@@ -41,5 +41,5 @@ def test_description_missing() -> None:
         "author": "test-author@example.com",
         "pubDate": "Wed, 29 Mar 2023 21:30:05 GMT",
     }
-    parsed_data = NewPackageMetadata.build_from(data)
+    parsed_data = PackageMetadata.build_from(data)
     assert parsed_data.description is None
