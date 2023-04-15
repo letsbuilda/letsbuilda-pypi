@@ -21,7 +21,7 @@ documentation = "https://docs.letsbuilda.dev/letsbuilda-pypi/"
 dev = [
     "black",
     "isort",
-    "pylint",
+    "ruff",
 ]
 tests = [
     "pytest",
@@ -42,15 +42,15 @@ build-backend = "setuptools.build_meta"
 copyright = "Let's build a ..."
 author = "Bradley Reynolds"
 
+[tool.isort]
+profile = "black"
+
 [tool.black]
 target-version = ["py310"]
 line-length = 120
 
-[tool.isort]
-profile = "black"
+[tool.ruff]
+line-length = 120
 
 [tool.pytest.ini_options]
 addopts = "tests -r a -v --doctest-modules src"
-
-[tool.pylint.format]
-max-line-length = 120
