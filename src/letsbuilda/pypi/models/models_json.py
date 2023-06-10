@@ -1,14 +1,9 @@
-"""Models"""
+"""Models for JSON responses"""
 
 from dataclasses import dataclass
-from datetime import datetime
 
 import pendulum
 from pendulum import DateTime
-
-
-def _parse_publication_date(publication_date: str) -> datetime:
-    return datetime.strptime(publication_date, "%a, %d %b %Y %H:%M:%S %Z")
 
 
 @dataclass(frozen=True, slots=True)
@@ -75,7 +70,6 @@ class URL:
     upload_time: DateTime
     upload_time_iso_8601: DateTime
     url: str
-    inspector_url: str
     yanked: bool
     yanked_reason: None
 
@@ -83,11 +77,6 @@ class URL:
     def from_dict(cls, data: dict, package_name: str, package_version: str) -> "URL":
         data["upload_time"]: DateTime = pendulum.parse(data["upload_time"])
         data["upload_time_iso_8601"]: DateTime = pendulum.parse(data["upload_time_iso_8601"])
-
-        data["inspector_url"] = data["url"].replace(
-            "https://files.pythonhosted.org/",
-            f"https://inspector.pypi.io/project/{package_name}/{package_version}/",
-        )
 
         return cls(**data)
 
@@ -129,7 +118,7 @@ class Info:
 
 
 @dataclass(frozen=True, slots=True)
-class PackageMetadata:
+class JSONPackageMetadata:
     """Package metadata"""
 
     info: Info
@@ -138,48 +127,11 @@ class PackageMetadata:
     vulnerabilities: list["Vulnerability"]
 
     @classmethod
-    def from_dict(cls, data: dict) -> "PackageMetadata":
+    def from_dict(cls, data: dict) -> "JSONPackageMetadata":
         info = Info.from_dict(data["info"])
         return cls(
             info=info,
             last_serial=data["last_serial"],
             urls=[URL.from_dict(url_data, info.name, info.version) for url_data in data["urls"]],
             vulnerabilities=[Vulnerability.from_dict(vuln_data) for vuln_data in data["vulnerabilities"]],
-        )
-
-
-@dataclass(frozen=True, slots=True)
-class RSSPackageMetadata:
-    """RSS Package metadata"""
-
-    title: str
-    version: str | None
-    package_link: str
-    guid: str
-    description: str | None
-    author: str | None
-    publication_date: datetime | None
-
-    @classmethod
-    def build_from(cls, data: dict[str, str]) -> "RSSPackageMetadata":
-        """Build an instance from raw data"""
-        split_title = data.get("title").removesuffix(" added to PyPI").split()
-        title = split_title[0]
-        if len(split_title) == 2:
-            version = split_title[1]
-        else:
-            version = None
-
-        publication_date: str | None = data.get("pubDate")
-        if publication_date is not None:
-            publication_date: datetime = _parse_publication_date(publication_date)
-
-        return cls(
-            title=title,
-            version=version,
-            package_link=data.get("link"),
-            guid=data.get("guid"),
-            description=data.get("description"),
-            author=data.get("author"),
-            publication_date=publication_date,
         )

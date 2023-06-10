@@ -3,10 +3,10 @@ A wrapper for PyPI's API and RSS feed
 """
 
 from .client import PyPIServices
-from .models import PackageMetadata, RSSPackageMetadata
+from .models import JSONPackageMetadata, RSSPackageMetadata
 
 __all__: list[str] = [
     "PyPIServices",
-    "PackageMetadata",
+    "JSONPackageMetadata",
     "RSSPackageMetadata",
 ]

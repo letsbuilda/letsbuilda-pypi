@@ -5,7 +5,7 @@ from typing import Final
 import xmltodict
 from aiohttp import ClientSession
 
-from .models import PackageMetadata, RSSPackageMetadata
+from .models import JSONPackageMetadata, RSSPackageMetadata
 
 
 class PyPIServices:
@@ -24,11 +24,11 @@ class PyPIServices:
             rss_data = xmltodict.parse(response_text)["rss"]["channel"]["item"]
             return [RSSPackageMetadata.build_from(package_data) for package_data in rss_data]
 
-    async def get_package_metadata(self, package_name: str, package_version: str | None = None) -> PackageMetadata:
+    async def get_package_metadata(self, package_name: str, package_version: str | None = None) -> JSONPackageMetadata:
         """Get metadata for a package"""
         if package_version is not None:
             url = f"https://pypi.org/pypi/{package_name}/{package_version}/json"
         else:
             url = f"https://pypi.org/pypi/{package_name}/json"
         async with self.http_session.get(url) as response:
-            return PackageMetadata.from_dict(await response.json())
+            return JSONPackageMetadata.from_dict(await response.json())

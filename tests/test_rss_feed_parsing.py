@@ -20,31 +20,16 @@ UPDATED_PACKAGE_DATA: Final[dict[str, str]] = {
 }
 
 
-def test_parse_publication_date() -> None:
-    """Confirm publication date gets parsed correctly"""
+def test_parsing_new_package_data() -> None:
+    """Confirm sample new package data gets parsed correctly"""
     parsed_data = RSSPackageMetadata.build_from(NEW_PACKAGE_DATA)
     assert parsed_data.publication_date == datetime(2023, 3, 29, 21, 30, 5)
-
-
-def test_author_missing() -> None:
-    """Confirm missing author gets set to None"""
-    parsed_data = RSSPackageMetadata.build_from(NEW_PACKAGE_DATA)
     assert parsed_data.author is None
-
-
-def test_description_missing() -> None:
-    """Confirm missing description gets set to None"""
-    parsed_data = RSSPackageMetadata.build_from(NEW_PACKAGE_DATA)
     assert parsed_data.description is None
-
-
-def test_new_package_has_no_version() -> None:
-    """Parse the lack of version from the new packages feed"""
-    parsed_data = RSSPackageMetadata.build_from(NEW_PACKAGE_DATA)
     assert parsed_data.version is None
 
 
-def test_update_package_has_version() -> None:
-    """Parse the version from the updated packages feed"""
+def test_parsing_updated_package_data() -> None:
+    """Confirm sample updated package data gets parsed correctly"""
     parsed_data = RSSPackageMetadata.build_from(UPDATED_PACKAGE_DATA)
     assert parsed_data.version == "1.0.0"
