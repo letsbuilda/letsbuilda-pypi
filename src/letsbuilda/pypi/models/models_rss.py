@@ -21,7 +21,7 @@ class RSSPackageMetadata:
     @classmethod
     def build_from(cls: type[Self], data: dict[str, str]) -> Self:
         """Build an instance from raw data."""
-        split_title = data.get("title").removesuffix(" added to PyPI").split()
+        split_title = data["title"].removesuffix(" added to PyPI").split()
         title = split_title[0]
         version = split_title[1] if len(split_title) == 2 else None  # noqa: PLR2004 - is not magic
 
@@ -30,9 +30,9 @@ class RSSPackageMetadata:
         return cls(
             title=title,
             version=version,
-            package_link=data.get("link"),
+            package_link=data["link"],
             guid=data.get("guid"),
             description=data.get("description"),
             author=data.get("author"),
-            publication_date=publication_date,
+            publication_date=publication_date,  # type: ignore[arg-type]
         )

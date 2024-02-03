@@ -19,10 +19,10 @@ class Vulnerability:
     fixed_in: list[str]
 
     @classmethod
-    def from_dict(cls: type[Self], data: dict) -> Self:
+    def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
         """Build an instance from a dictionary."""
         if data["withdrawn"] is not None:
-            data["withdrawn"]: datetime = datetime.fromisoformat(data["withdrawn"])
+            data["withdrawn"] = datetime.fromisoformat(data["withdrawn"])
 
         return cls(**data)
 
@@ -36,7 +36,7 @@ class Downloads:
     last_week: int
 
     @classmethod
-    def from_dict(cls: type[Self], data: dict) -> Self:
+    def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
         """Build an instance from a dictionary."""
         return cls(**data)
 
@@ -50,7 +50,7 @@ class Digests:
     sha256: str
 
     @classmethod
-    def from_dict(cls: type[Self], data: dict) -> Self:
+    def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
         """Build an instance from a dictionary."""
         return cls(**data)
 
@@ -76,10 +76,10 @@ class URL:
     yanked_reason: None
 
     @classmethod
-    def from_dict(cls: type[Self], data: dict) -> Self:
+    def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
         """Build an instance from a dictionary."""
-        data["upload_time"]: datetime = datetime.fromisoformat(data["upload_time"])
-        data["upload_time_iso_8601"]: datetime = datetime.fromisoformat(data["upload_time_iso_8601"])
+        data["upload_time"] = datetime.fromisoformat(data["upload_time"])
+        data["upload_time_iso_8601"] = datetime.fromisoformat(data["upload_time_iso_8601"])
 
         return cls(**data)
 
@@ -116,7 +116,7 @@ class Info:
     yanked_reason: str | None
 
     @classmethod
-    def from_dict(cls: type[Self], data: dict) -> Self:
+    def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
         """Build an instance from a dictionary."""
         return cls(**data)
 
@@ -131,7 +131,7 @@ class JSONPackageMetadata:
     vulnerabilities: list[Vulnerability]
 
     @classmethod
-    def from_dict(cls: type[Self], data: dict) -> Self:
+    def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
         """Build an instance from a dictionary."""
         info = Info.from_dict(data["info"])
         return cls(

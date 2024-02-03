@@ -104,5 +104,5 @@ def test_json_api_data_parsing() -> None:
 
     assert model.info.name == "letsbuilda-pypi"
     assert model.info.version == "4.0.0"
-    assert model.urls[0].upload_time == datetime(2023, 4, 26, 2, 40, 3)
+    assert model.urls[0].upload_time == datetime(2023, 4, 26, 2, 40, 3)  # noqa: DTZ001 -- timezone is naive
     assert model.urls[0].upload_time_iso_8601 == datetime(2023, 4, 26, 2, 40, 3, 919027, tzinfo=UTC)
