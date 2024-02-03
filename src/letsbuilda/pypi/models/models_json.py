@@ -9,7 +9,7 @@ from typing import Self
 class Vulnerability:
     """Security vulnerability."""
 
-    id: str  # noqa: A003 - fields named exactly the same as the upstream
+    id: str
     aliases: list[str]
     link: str
     source: str
@@ -99,7 +99,7 @@ class Info:
     downloads: Downloads
     home_page: str
     keywords: str
-    license: str  # noqa: A003 - fields named exactly the same as the upstream
+    license: str
     maintainer: str
     maintainer_email: str
     name: str
