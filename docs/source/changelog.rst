@@ -1,8 +1,8 @@
-.. See docs for details on formatting your entries
-   https://releases.readthedocs.io/en/latest/concepts.html
-
 Changelog
 =========
+
+- :release:`5.0.1 <3rd February 2024>`
+- :bug:`67` Use a single function to get versioned package metadata
 
 - :release:`5.0.0 <31st July 2023>`
 - :feature:`48` Replace requests and aiohttp with HTTPX

@@ -1,6 +1,6 @@
 [project]
 name = "letsbuilda-pypi"
-version = "5.0.0"
+version = "5.0.1"
 description = "A wrapper for PyPI's API and RSS feed"
 authors = [
     { name = "Bradley Reynolds", email = "bradley.reynolds@darbia.dev" },
@@ -36,6 +36,9 @@ docs = [
 [build-system]
 requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-data]
+"letsbuilda.pypi" = ["py.typed"]
 
 [tool.black]
 target-version = ["py311"]
