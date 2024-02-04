@@ -1,6 +1,9 @@
 Changelog
 =========
 
+- :release:`5.0.2 <3rd February 2024>`
+- :bug:`74` Remove none-check from publication_date
+
 - :release:`5.0.1 <3rd February 2024>`
 - :bug:`67` Use a single function to get versioned package metadata
 

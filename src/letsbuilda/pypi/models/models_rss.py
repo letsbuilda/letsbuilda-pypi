@@ -25,8 +25,6 @@ class RSSPackageMetadata:
         title = split_title[0]
         version = split_title[1] if len(split_title) == 2 else None  # noqa: PLR2004 - is not magic
 
-        publication_date = parsedate_to_datetime(data.get("pubDate")) if data.get("pubDate") is not None else None
-
         return cls(
             title=title,
             version=version,
@@ -34,5 +32,5 @@ class RSSPackageMetadata:
             guid=data.get("guid"),
             description=data.get("description"),
             author=data.get("author"),
-            publication_date=publication_date,  # type: ignore[arg-type]
+            publication_date=parsedate_to_datetime(data["pubDate"]),
         )
