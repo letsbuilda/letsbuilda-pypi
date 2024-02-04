@@ -69,6 +69,3 @@ known-first-party = ["letsbuilda.pypi"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
-
-[tool.pytest.ini_options]
-addopts = "tests -r a -v --doctest-modules src"
