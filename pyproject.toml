@@ -69,3 +69,8 @@ known-first-party = ["letsbuilda.pypi"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
+
+[tool.coverage.run]
+source = [
+    "letsbuilda.pypi",
+]
