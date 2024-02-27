@@ -2,7 +2,7 @@
 
 from dataclasses import dataclass
 from datetime import datetime
-from typing import Self
+from typing import Literal, Self
 
 
 @dataclass(frozen=True)
@@ -114,10 +114,43 @@ class Info:
     version: str
     yanked: bool
     yanked_reason: str | None
+    dynamic: (
+        list[
+            Literal[
+                "Platform",
+                "Supported-Platform",
+                "Summary",
+                "Description",
+                "Description-Content-Type",
+                "Keywords",
+                "Home-page",
+                "Download-URL",
+                "Author",
+                "Author-email",
+                "Maintainer",
+                "Maintainer-email",
+                "License",
+                "Classifier",
+                "Requires-Dist",
+                "Requires-Python",
+                "Requires-External",
+                "Project-URL",
+                "Provides-Extra",
+                "Provides-Dist",
+                "Obsoletes-Dist",
+            ]
+        ]
+        | None
+    )
+    provides_extra: list[str] | None
 
     @classmethod
     def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
         """Build an instance from a dictionary."""
+        if "dynamic" not in data:
+            data["dynamic"] = None
+        if "provides_extra" not in data:
+            data["provides_extra"] = None
         return cls(**data)
 
 

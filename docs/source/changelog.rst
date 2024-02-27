@@ -1,6 +1,9 @@
 Changelog
 =========
 
+- :release:`5.1.0 <26th February 2024>`
+- :bug:`78` Add ``dynamic`` and ``provides_extra`` to JSON schema
+
 - :release:`5.0.2 <3rd February 2024>`
 - :bug:`74` Remove none-check from publication_date
 
