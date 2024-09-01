@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
       - name: "Set up Python 3.x"
-        uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5.1.0
+        uses: actions/setup-python@f677139bbe7f9c59b41e40162b753c062f5d49a3 # v5.2.0
         with:
           python-version: "3.x"
           cache: "pip"
@@ -34,7 +34,7 @@ jobs:
           --outdir dist/
 
       - name: "Upload packages"
-        uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
+        uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4.4.0
         with:
           name: python-package-distributions
           path: dist/
@@ -51,13 +51,13 @@ jobs:
 
     steps:
     - name: "Download dists"
-      uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e # v4.1.7
+      uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
       with:
         name: python-package-distributions
         path: dist/
 
     - name: "Publish distribution 📦 to PyPI"
-      uses: pypa/gh-action-pypi-publish@81e9d935c883d0b210363ab89cf05f3894778450 # v1.8.14
+      uses: pypa/gh-action-pypi-publish@8a08d616893759ef8e1aa1f2785787c0b97e20d6 # v1.10.0
       with:
           verbose: true
           print-hash: true
