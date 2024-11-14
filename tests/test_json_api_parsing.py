@@ -18,6 +18,8 @@ JSON_API_DATA = {
         "home_page": "",
         "keywords": "",
         "license": "MIT",
+        "license_expression": None,
+        "license_files": None,
         "maintainer": "",
         "maintainer_email": "",
         "name": "letsbuilda-pypi",
