@@ -3,7 +3,7 @@
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Vulnerability(BaseModel):
@@ -13,7 +13,7 @@ class Vulnerability(BaseModel):
     aliases: list[str]
     link: str
     source: str
-    withdrawn: datetime | None
+    withdrawn: datetime | None = Field(None)
     summary: str
     details: str
     fixed_in: list[str]
@@ -30,7 +30,7 @@ class Downloads(BaseModel):
 class Digests(BaseModel):
     """URL file digests."""
 
-    blake2_b_256: str
+    blake2_b_256: str = Field(validation_alias="blake2b_256")
     md5: str
     sha256: str
 
@@ -115,8 +115,8 @@ class Info(BaseModel):
             ]
         ]
         | None
-    )
-    provides_extra: list[str] | None
+    ) = Field(None)
+    provides_extra: list[str] | None = Field(None)
 
 
 class JSONPackageMetadata(BaseModel):

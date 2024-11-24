@@ -102,7 +102,7 @@ JSON_API_DATA = {
 
 def test_json_api_data_parsing() -> None:
     """Confirm sample JSON API data gets parsed correctly."""
-    model = JSONPackageMetadata.from_dict(JSON_API_DATA)
+    model = JSONPackageMetadata.model_validate(JSON_API_DATA)
 
     assert model.info.name == "letsbuilda-pypi"
     assert model.info.version == "4.0.0"

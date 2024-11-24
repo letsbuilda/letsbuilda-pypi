@@ -22,7 +22,7 @@ UPDATED_PACKAGE_DATA: Final[dict[str, str]] = {
 
 def test_parsing_new_package_data() -> None:
     """Confirm sample new package data gets parsed correctly."""
-    parsed_data = RSSPackageMetadata.build_from(NEW_PACKAGE_DATA)
+    parsed_data = RSSPackageMetadata.model_validate(NEW_PACKAGE_DATA)
     assert parsed_data.publication_date == datetime(2023, 3, 29, 21, 30, 5, tzinfo=UTC)
     assert parsed_data.author is None
     assert parsed_data.description is None
@@ -31,5 +31,5 @@ def test_parsing_new_package_data() -> None:
 
 def test_parsing_updated_package_data() -> None:
     """Confirm sample updated package data gets parsed correctly."""
-    parsed_data = RSSPackageMetadata.build_from(UPDATED_PACKAGE_DATA)
+    parsed_data = RSSPackageMetadata.model_validate(UPDATED_PACKAGE_DATA)
     assert parsed_data.version == "1.0.0"

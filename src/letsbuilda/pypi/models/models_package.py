@@ -1,7 +1,5 @@
 """Models for package metadata."""
 
-
-
 from pydantic import BaseModel
 
 

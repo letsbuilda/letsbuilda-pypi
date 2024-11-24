@@ -34,7 +34,7 @@ class PyPIServices:
         """
         response = await self.http_client.get(feed_url)
         rss_data = xmltodict.parse(response.text)["rss"]["channel"]["item"]
-        return [RSSPackageMetadata.build_from(package_data) for package_data in rss_data]
+        return [RSSPackageMetadata.model_validate(package_data) for package_data in rss_data]
 
     async def get_package_json_metadata(
         self: Self,
@@ -68,7 +68,7 @@ class PyPIServices:
         response = await self.http_client.get(url)
         if response.status_code == HTTPStatus.NOT_FOUND:
             raise PackageNotFoundError(package_title, package_version)
-        return JSONPackageMetadata.from_dict(response.json())
+        return JSONPackageMetadata.model_validate(response.json())
 
     async def get_package_metadata(
         self: Self,
@@ -89,4 +89,6 @@ class PyPIServices:
         Package
             The package object.
         """
-        return Package.from_json_api_data(await self.get_package_json_metadata(package_title, package_version))
+        return Package.model_validate(
+            (await self.get_package_json_metadata(package_title, package_version)).model_dump(),
+        )
