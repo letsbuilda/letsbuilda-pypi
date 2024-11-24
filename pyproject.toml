@@ -2,9 +2,7 @@
 name = "letsbuilda-pypi"
 version = "5.2.1"
 description = "A wrapper for PyPI's API and RSS feed"
-authors = [
-    { name = "Bradley Reynolds", email = "bradley.reynolds@darbia.dev" },
-]
+authors = [{ name = "Bradley Reynolds", email = "bradley.reynolds@darbia.dev" }]
 license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.11"
@@ -43,26 +41,24 @@ build-backend = "setuptools.build_meta"
 "letsbuilda.pypi" = ["py.typed"]
 
 [tool.ruff]
-preview = true
-unsafe-fixes = true
-target-version = "py311"
+target-version = "py312"
 line-length = 120
 
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
-    "CPY001", # (Missing copyright notice at top of file)
+    "CPY001",  # (Missing copyright notice at top of file)
     "PLC0414", # (Import alias does not rename original package) - Re-exporting
 ]
 
 [tool.ruff.lint.extend-per-file-ignores]
 "docs/*" = [
     "INP001", # (File `tests/*.py` is part of an implicit namespace package. Add an `__init__.py`.) - Docs are not modules
-    "FA102", # (Missing `from __future__ import annotations`, but uses PEP 585 collection) - Docs are actually built on the latest stable release of Python
+    "FA102",  # (Missing `from __future__ import annotations`, but uses PEP 585 collection) - Docs are actually built on the latest stable release of Python
 ]
 "tests/*" = [
     "INP001", # (File `tests/*.py` is part of an implicit namespace package. Add an `__init__.py`.) - Tests are not modules
-    "S101", # (Use of `assert` detected) - Yes, that's the point
+    "S101",   # (Use of `assert` detected) - Yes, that's the point
 ]
 
 [tool.ruff.lint.isort]
@@ -72,6 +68,7 @@ known-first-party = ["letsbuilda.pypi"]
 convention = "numpy"
 
 [tool.coverage.run]
-source = [
-    "letsbuilda.pypi",
-]
+source = ["letsbuilda.pypi"]
+
+[tool.pytest.ini_options]
+addopts = "--strict-markers"
