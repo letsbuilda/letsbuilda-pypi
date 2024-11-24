@@ -3,7 +3,7 @@ Changelog
 
 - :release:`5.2.1 <14th November 2024>`
 - :bug:`100` Allow new fields to be dynamic
--
+
 - :release:`5.2.0 <14th November 2024>`
 - :bug:`100` Add fields for fields for PEP 639, Metadata 2.4
 -
