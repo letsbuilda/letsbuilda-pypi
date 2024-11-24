@@ -1,12 +1,12 @@
 """Models for JSON responses."""
 
-from dataclasses import dataclass
 from datetime import datetime
-from typing import Literal, Self
+from typing import Literal
+
+from pydantic import BaseModel
 
 
-@dataclass(frozen=True)
-class Vulnerability:
+class Vulnerability(BaseModel):
     """Security vulnerability."""
 
     id: str
@@ -18,81 +18,24 @@ class Vulnerability:
     details: str
     fixed_in: list[str]
 
-    @classmethod
-    def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
-        """
-        Build an instance from a dictionary.
 
-        Parameters
-        ----------
-        data
-            The data for a vulnerability.
-
-        Returns
-        -------
-        Vulnerability
-            An object storing the details of a security vulnerability.
-        """
-        if data["withdrawn"] is not None:
-            data["withdrawn"] = datetime.fromisoformat(data["withdrawn"])
-
-        return cls(**data)
-
-
-@dataclass(frozen=True)
-class Downloads:
+class Downloads(BaseModel):
     """Release download counts."""
 
     last_day: int
     last_month: int
     last_week: int
 
-    @classmethod
-    def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
-        """
-        Build an instance from a dictionary.
 
-        Parameters
-        ----------
-        data
-            A dictionary containing download statistics.
-
-        Returns
-        -------
-        Downloads
-            An object storing download statistics.
-        """
-        return cls(**data)
-
-
-@dataclass(frozen=True)
-class Digests:
+class Digests(BaseModel):
     """URL file digests."""
 
     blake2_b_256: str
     md5: str
     sha256: str
 
-    @classmethod
-    def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
-        """
-        Build an instance from a dictionary.
 
-        Parameters
-        ----------
-        data
-            A dictionary containing checksums of a package release.
-
-        Returns
-        -------
-        Digests
-            An object storing checksums.
-        """
-        return cls(**data)
-
-
-@dataclass(frozen=True)
-class URL:
+class URL(BaseModel):
     """Package release URL."""
 
     comment_text: str
@@ -111,29 +54,8 @@ class URL:
     yanked: bool
     yanked_reason: None
 
-    @classmethod
-    def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
-        """
-        Build an instance from a dictionary.
 
-        Parameters
-        ----------
-        data
-            The JSON API metadata for a package release.
-
-        Returns
-        -------
-        URL
-            An object representing a package release.
-        """
-        data["upload_time"] = datetime.fromisoformat(data["upload_time"])
-        data["upload_time_iso_8601"] = datetime.fromisoformat(data["upload_time_iso_8601"])
-
-        return cls(**data)
-
-
-@dataclass(frozen=True)
-class Info:
+class Info(BaseModel):
     """Package metadata internal info block."""
 
     author: str
@@ -196,56 +118,11 @@ class Info:
     )
     provides_extra: list[str] | None
 
-    @classmethod
-    def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
-        """
-        Build an instance from a dictionary.
 
-        Parameters
-        ----------
-        data
-            The JSON API metadata for a package.
-
-        Returns
-        -------
-        Info
-            An object storing a package's metadata.
-        """
-        if "dynamic" not in data:
-            data["dynamic"] = None
-        if "provides_extra" not in data:
-            data["provides_extra"] = None
-        return cls(**data)
-
-
-@dataclass(frozen=True)
-class JSONPackageMetadata:
+class JSONPackageMetadata(BaseModel):
     """Package metadata."""
 
     info: Info
     last_serial: int
     urls: list[URL]
     vulnerabilities: list[Vulnerability]
-
-    @classmethod
-    def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
-        """
-        Build an instance from a dictionary.
-
-        Parameters
-        ----------
-        data
-            Package metadata from the JSON API.
-
-        Returns
-        -------
-        JSONPackageMetadata
-            An object storing package metadata.
-        """
-        info = Info.from_dict(data["info"])
-        return cls(
-            info=info,
-            last_serial=data["last_serial"],
-            urls=[URL.from_dict(url_data) for url_data in data["urls"]],
-            vulnerabilities=[Vulnerability.from_dict(vuln_data) for vuln_data in data["vulnerabilities"]],
-        )
