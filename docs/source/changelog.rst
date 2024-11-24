@@ -6,7 +6,7 @@ Changelog
 
 - :release:`5.2.0 <14th November 2024>`
 - :bug:`100` Add fields for fields for PEP 639, Metadata 2.4
--
+
 - :release:`5.1.0 <26th February 2024>`
 - :bug:`78` Add ``dynamic`` and ``provides_extra`` to JSON schema
 
