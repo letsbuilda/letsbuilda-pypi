@@ -20,7 +20,19 @@ class RSSPackageMetadata:
 
     @classmethod
     def build_from(cls: type[Self], data: dict[str, str]) -> Self:
-        """Build an instance from raw data."""
+        """
+        Build an instance from raw data.
+
+        Parameters
+        ----------
+        data
+            Parsed RSS data from PyPI's RSS API.
+
+        Returns
+        -------
+        RSSPackageMetadata
+            The pacckage metadata from the RSS API.
+        """
         split_title = data["title"].removesuffix(" added to PyPI").split()
         title = split_title[0]
         version = split_title[1] if len(split_title) == 2 else None  # noqa: PLR2004 - is not magic

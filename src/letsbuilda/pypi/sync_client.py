@@ -20,7 +20,18 @@ class PyPIServices:
         self.http_client = http_client
 
     def get_rss_feed(self: Self, feed_url: str) -> list[RSSPackageMetadata]:
-        """Get the new packages RSS feed."""
+        """Get the new packages RSS feed.
+
+        Parameters
+        ----------
+        feed_url
+            The URL of the RSS feed.
+
+        Returns
+        -------
+        list[RSSPackageMetadata]
+            The list of new packages.
+        """
         response_text = self.http_client.get(feed_url).text
         rss_data = xmltodict.parse(response_text)["rss"]["channel"]["item"]
         return [RSSPackageMetadata.build_from(package_data) for package_data in rss_data]
@@ -30,7 +41,26 @@ class PyPIServices:
         package_title: str,
         package_version: str | None = None,
     ) -> JSONPackageMetadata:
-        """Get metadata for a package."""
+        """
+        Retrieve metadata for a package.
+
+        Raises
+        ------
+        PackageNotFoundError
+            If the package is not found.
+
+        Parameters
+        ----------
+        package_title
+            The title of the package.
+        package_version
+            The version of the package.
+
+        Returns
+        -------
+        JSONPackageMetadata
+            The metadata for the package.
+        """
         if package_version is not None:
             url = f"https://pypi.org/pypi/{package_title}/{package_version}/json"
         else:
@@ -45,5 +75,18 @@ class PyPIServices:
         package_title: str,
         package_version: str | None = None,
     ) -> Package:
-        """Get metadata for a package."""
+        """Create a `Package` object from its metadata.
+
+        Parameters
+        ----------
+        package_title
+            The title of the package.
+        package_version
+            The version of the package.
+
+        Returns
+        -------
+        Package
+            The package object.
+        """
         return Package.from_json_api_data(self.get_package_json_metadata(package_title, package_version))

@@ -15,7 +15,18 @@ class Distribution:
 
     @classmethod
     def from_json_api_data(cls: type[Self], data: URL) -> Self:
-        """Build an instance from the JSON API data."""
+        """Build an instance from the JSON API data.
+
+        Parameters
+        ----------
+        data
+            The URL of the file hosting the distribution.
+
+        Returns
+        -------
+        Distribution
+            An object representing a distribution.
+        """
         return cls(
             filename=data.filename,
             url=data.url,
@@ -31,7 +42,19 @@ class Release:
 
     @classmethod
     def from_json_api_data(cls: type[Self], data: JSONPackageMetadata) -> Self:
-        """Build an instance from the JSON API data."""
+        """
+        Build an instance from the JSON API data.
+
+        Parameters
+        ----------
+        data
+            The JSON API metadata for a package release.
+
+        Returns
+        -------
+        Release
+            An object representing a package release.
+        """
         return cls(
             version=data.info.version,
             distributions=[Distribution.from_json_api_data(json_api_data) for json_api_data in data.urls],
@@ -47,7 +70,19 @@ class Package:
 
     @classmethod
     def from_json_api_data(cls: type[Self], data: JSONPackageMetadata) -> Self:
-        """Build an instance from the JSON API data."""
+        """
+        Build an instance from the JSON API data.
+
+        Parameters
+        ----------
+        data
+            The JSON API metadata for a package.
+
+        Returns
+        -------
+        Package
+            An object representing a package.
+        """
         return cls(
             title=data.info.name,
             releases=[Release.from_json_api_data(data)],

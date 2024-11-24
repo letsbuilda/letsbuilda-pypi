@@ -20,7 +20,19 @@ class Vulnerability:
 
     @classmethod
     def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
-        """Build an instance from a dictionary."""
+        """
+        Build an instance from a dictionary.
+
+        Parameters
+        ----------
+        data
+            The data for a vulnerability.
+
+        Returns
+        -------
+        Vulnerability
+            An object storing the details of a security vulnerability.
+        """
         if data["withdrawn"] is not None:
             data["withdrawn"] = datetime.fromisoformat(data["withdrawn"])
 
@@ -37,7 +49,19 @@ class Downloads:
 
     @classmethod
     def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
-        """Build an instance from a dictionary."""
+        """
+        Build an instance from a dictionary.
+
+        Parameters
+        ----------
+        data
+            A dictionary containing download statistics.
+
+        Returns
+        -------
+        Downloads
+            An object storing download statistics.
+        """
         return cls(**data)
 
 
@@ -51,7 +75,19 @@ class Digests:
 
     @classmethod
     def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
-        """Build an instance from a dictionary."""
+        """
+        Build an instance from a dictionary.
+
+        Parameters
+        ----------
+        data
+            A dictionary containing checksums of a package release.
+
+        Returns
+        -------
+        Digests
+            An object storing checksums.
+        """
         return cls(**data)
 
 
@@ -77,7 +113,19 @@ class URL:
 
     @classmethod
     def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
-        """Build an instance from a dictionary."""
+        """
+        Build an instance from a dictionary.
+
+        Parameters
+        ----------
+        data
+            The JSON API metadata for a package release.
+
+        Returns
+        -------
+        URL
+            An object representing a package release.
+        """
         data["upload_time"] = datetime.fromisoformat(data["upload_time"])
         data["upload_time_iso_8601"] = datetime.fromisoformat(data["upload_time_iso_8601"])
 
@@ -150,7 +198,19 @@ class Info:
 
     @classmethod
     def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
-        """Build an instance from a dictionary."""
+        """
+        Build an instance from a dictionary.
+
+        Parameters
+        ----------
+        data
+            The JSON API metadata for a package.
+
+        Returns
+        -------
+        Info
+            An object storing a package's metadata.
+        """
         if "dynamic" not in data:
             data["dynamic"] = None
         if "provides_extra" not in data:
@@ -169,7 +229,19 @@ class JSONPackageMetadata:
 
     @classmethod
     def from_dict(cls: type[Self], data: dict) -> Self:  # type: ignore[type-arg]
-        """Build an instance from a dictionary."""
+        """
+        Build an instance from a dictionary.
+
+        Parameters
+        ----------
+        data
+            Package metadata from the JSON API.
+
+        Returns
+        -------
+        JSONPackageMetadata
+            An object storing package metadata.
+        """
         info = Info.from_dict(data["info"])
         return cls(
             info=info,
