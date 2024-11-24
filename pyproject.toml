@@ -9,6 +9,7 @@ requires-python = ">=3.11"
 dependencies = [
     "httpx",
     "xmltodict",
+    "pydantic",
 ]
 
 [project.urls]
@@ -66,6 +67,9 @@ known-first-party = ["letsbuilda.pypi"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]
 
 [tool.coverage.run]
 source = ["letsbuilda.pypi"]
