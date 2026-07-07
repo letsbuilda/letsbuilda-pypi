@@ -60,6 +60,7 @@ exclude-newer = "P7D"
 
 [tool.ruff]
 line-length = 120
+cache-dir = ".cache/ruff"
 
 [tool.ruff.lint]
 select = ["ALL"]
@@ -85,10 +86,24 @@ known-first-party = ["letsbuilda.pypi"]
 convention = "numpy"
 
 [tool.mypy]
+strict = true
+namespace_packages = true
+explicit_package_bases = true
+mypy_path = "src"
+pretty = true
+num_workers = 4
+native_parser = true # required by num_workers
 plugins = ["pydantic.mypy"]
+cache_dir = ".cache/mypy"
+
 
 [tool.coverage.run]
-source = ["letsbuilda.pypi"]
+branch = true
+source_pkgs = ["letsbuilda.pypi"]
+source_dirs = ["tests"]
+data_file = ".cache/coverage/.coverage"
 
-[tool.pytest.ini_options]
-addopts = "--strict-markers"
+[tool.pytest]
+strict = true
+junit_family = "xunit1"
+cache_dir = ".cache/pytest"
