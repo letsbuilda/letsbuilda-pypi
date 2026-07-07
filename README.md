@@ -1,6 +1,6 @@
 # letsbuilda-pypi
 
-A wrapper for [PyPI's API and RSS feeds](https://warehouse.pypa.io/api-reference/index.html).
+A wrapper for PyPI's [JSON API](https://docs.pypi.org/api/json/) and [RSS feeds](https://docs.pypi.org/api/feeds/).
 
 ## Usage
 
