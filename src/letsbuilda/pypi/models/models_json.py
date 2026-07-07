@@ -38,7 +38,7 @@ class Digests(BaseModel):
 class URL(BaseModel):
     """Package release URL."""
 
-    comment_text: str
+    comment_text: str | None
     digests: Digests
     downloads: int
     filename: str
@@ -58,27 +58,27 @@ class URL(BaseModel):
 class Info(BaseModel):
     """Package metadata internal info block."""
 
-    author: str
-    author_email: str
+    author: str | None
+    author_email: str | None
     bugtrack_url: None
     classifiers: list[str]
     description: str
     description_content_type: str
     docs_url: None
-    download_url: str
+    download_url: str | None
     downloads: Downloads
-    home_page: str
+    home_page: str | None
     keywords: str
     license: str
     license_expression: str | None
     license_files: list[str] | None
-    maintainer: str
-    maintainer_email: str
+    maintainer: str | None
+    maintainer_email: str | None
     name: str
     package_url: str
     platform: str | None
     project_url: str
-    project_urls: dict[str, str]
+    project_urls: dict[str, str] | None
     release_url: str
     requires_dist: list[str]
     requires_python: str
