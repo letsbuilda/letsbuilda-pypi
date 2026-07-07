@@ -90,12 +90,15 @@ class PyPIServices:
             The package object.
         """
         metadata = await self.get_package_json_metadata(package_title, package_version)
+        info = metadata.info
         return Package(
-            title=metadata.info.name,
+            title=(info.name if info else None) or package_title,
             releases=[
                 Release(
-                    version=metadata.info.version,
-                    distributions=[Distribution(filename=url.filename, url=url.url) for url in metadata.urls],
+                    version=(info.version if info else None) or package_version or "",
+                    distributions=[
+                        Distribution(filename=url.filename or "", url=url.url or "") for url in metadata.urls or []
+                    ],
                 ),
             ],
         )
