@@ -2,7 +2,7 @@
 name = "letsbuilda-pypi"
 version = "5.2.2"
 description = "A wrapper for PyPI's API and RSS feed"
-authors = [{ name = "Bradley Reynolds", email = "bradley.reynolds@darbia.dev" }]
+authors = [{ name = "Bradley Reynolds", email = "bradley.reynolds@tailstory.dev" }]
 license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">=3.11"
