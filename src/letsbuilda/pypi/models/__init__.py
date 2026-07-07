@@ -8,6 +8,6 @@ __all__ = [
     "Distribution",
     "JSONPackageMetadata",
     "Package",
-    "Release",
     "RSSPackageMetadata",
+    "Release",
 ]
