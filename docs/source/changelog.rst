@@ -1,6 +1,9 @@
 Changelog
 =========
 
+- :release:`5.2.2 <7th July 2026>`
+- :bug:`121` Fix ``get_package_metadata``
+
 - :release:`5.2.1 <14th November 2024>`
 - :bug:`100` Allow new fields to be dynamic
 
