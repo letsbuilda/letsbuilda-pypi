@@ -7,7 +7,7 @@ import xmltodict
 from httpx import AsyncClient
 
 from .exceptions import PackageNotFoundError
-from .models import JSONPackageMetadata, Package, RSSPackageMetadata
+from .models import Distribution, JSONPackageMetadata, Package, Release, RSSPackageMetadata
 
 
 class PyPIServices:
@@ -89,6 +89,13 @@ class PyPIServices:
         Package
             The package object.
         """
-        return Package.model_validate(
-            (await self.get_package_json_metadata(package_title, package_version)).model_dump(),
+        metadata = await self.get_package_json_metadata(package_title, package_version)
+        return Package(
+            title=metadata.info.name,
+            releases=[
+                Release(
+                    version=metadata.info.version,
+                    distributions=[Distribution(filename=url.filename, url=url.url) for url in metadata.urls],
+                ),
+            ],
         )
