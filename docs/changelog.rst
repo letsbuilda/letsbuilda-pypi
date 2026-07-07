@@ -1,6 +1,9 @@
 Changelog
 =========
 
+- :release:`6.0.0 <7th July 2026>`
+- :bug:`124` Allow ALL JSON API fields to be nullable as a stopgap for arbitrary null fields in responses
+
 - :release:`5.2.2 <7th July 2026>`
 - :bug:`121` Fix ``get_package_metadata``
 
