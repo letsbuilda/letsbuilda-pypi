@@ -9,83 +9,83 @@ from pydantic import BaseModel, Field
 class Vulnerability(BaseModel):
     """Security vulnerability."""
 
-    id: str
-    aliases: list[str]
-    link: str
-    source: str
-    withdrawn: datetime | None = Field(None)
-    summary: str
-    details: str
-    fixed_in: list[str]
+    id: str | None = None
+    aliases: list[str] | None = None
+    link: str | None = None
+    source: str | None = None
+    withdrawn: datetime | None = None
+    summary: str | None = None
+    details: str | None = None
+    fixed_in: list[str] | None = None
 
 
 class Downloads(BaseModel):
     """Release download counts."""
 
-    last_day: int
-    last_month: int
-    last_week: int
+    last_day: int | None = None
+    last_month: int | None = None
+    last_week: int | None = None
 
 
 class Digests(BaseModel):
     """URL file digests."""
 
-    blake2_b_256: str = Field(validation_alias="blake2b_256")
-    md5: str
-    sha256: str
+    blake2_b_256: str | None = Field(None, validation_alias="blake2b_256")
+    md5: str | None = None
+    sha256: str | None = None
 
 
 class URL(BaseModel):
     """Package release URL."""
 
-    comment_text: str
-    digests: Digests
-    downloads: int
-    filename: str
-    has_sig: bool
-    md5_digest: str
-    packagetype: str
-    python_version: str
-    requires_python: str | None
-    size: int
-    upload_time: datetime
-    upload_time_iso_8601: datetime
-    url: str
-    yanked: bool
-    yanked_reason: None
+    comment_text: str | None = None
+    digests: Digests | None = None
+    downloads: int | None = None
+    filename: str | None = None
+    has_sig: bool | None = None
+    md5_digest: str | None = None
+    packagetype: str | None = None
+    python_version: str | None = None
+    requires_python: str | None = None
+    size: int | None = None
+    upload_time: datetime | None = None
+    upload_time_iso_8601: datetime | None = None
+    url: str | None = None
+    yanked: bool | None = None
+    yanked_reason: str | None = None
 
 
 class Info(BaseModel):
     """Package metadata internal info block."""
 
-    author: str
-    author_email: str
-    bugtrack_url: None
-    classifiers: list[str]
-    description: str
-    description_content_type: str
-    docs_url: None
-    download_url: str
-    downloads: Downloads
-    home_page: str
-    keywords: str
-    license: str
-    license_expression: str | None
-    license_files: list[str] | None
-    maintainer: str
-    maintainer_email: str
-    name: str
-    package_url: str
-    platform: str | None
-    project_url: str
-    project_urls: dict[str, str]
-    release_url: str
-    requires_dist: list[str]
-    requires_python: str
-    summary: str
-    version: str
-    yanked: bool
-    yanked_reason: str | None
+    author: str | None = None
+    author_email: str | None = None
+    bugtrack_url: str | None = None
+    classifiers: list[str] | None = None
+    description: str | None = None
+    description_content_type: str | None = None
+    docs_url: str | None = None
+    download_url: str | None = None
+    downloads: Downloads | None = None
+    home_page: str | None = None
+    keywords: str | None = None
+    license: str | None = None
+    license_expression: str | None = None
+    license_files: list[str] | None = None
+    maintainer: str | None = None
+    maintainer_email: str | None = None
+    name: str | None = None
+    package_url: str | None = None
+    platform: str | None = None
+    project_url: str | None = None
+    project_urls: dict[str, str] | None = None
+    release_url: str | None = None
+    requires_dist: list[str] | None = None
+    requires_python: str | None = None
+    summary: str | None = None
+    version: str | None = None
+    yanked: bool | None = None
+    yanked_reason: str | None = None
     dynamic: (
         list[
             Literal[
@@ -115,14 +115,14 @@ class Info(BaseModel):
             ]
         ]
         | None
-    ) = Field(None)
-    provides_extra: list[str] | None = Field(None)
+    ) = None
+    provides_extra: list[str] | None = None
 
 
 class JSONPackageMetadata(BaseModel):
     """Package metadata."""
 
-    info: Info
-    last_serial: int
-    urls: list[URL]
-    vulnerabilities: list[Vulnerability]
+    info: Info | None = None
+    last_serial: int | None = None
+    urls: list[URL] | None = None
+    vulnerabilities: list[Vulnerability] | None = None

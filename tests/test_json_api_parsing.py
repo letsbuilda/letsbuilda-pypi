@@ -104,7 +104,33 @@ def test_json_api_data_parsing() -> None:
     """Confirm sample JSON API data gets parsed correctly."""
     model = JSONPackageMetadata.model_validate(JSON_API_DATA)
 
+    assert model.info is not None
     assert model.info.name == "letsbuilda-pypi"
     assert model.info.version == "4.0.0"
+    assert model.urls is not None
     assert model.urls[0].upload_time == datetime(2023, 4, 26, 2, 40, 3)  # noqa: DTZ001 -- timezone is naive
     assert model.urls[0].upload_time_iso_8601 == datetime(2023, 4, 26, 2, 40, 3, 919027, tzinfo=UTC)
+
+
+def test_json_api_data_parsing_all_fields_nullable() -> None:
+    """Confirm every field is nullable, so sparse API responses still parse.
+
+    PyPI returns ``null`` for arbitrary fields depending on the package, so the
+    model must accept a missing or ``null`` value anywhere rather than only in a
+    hand-picked set of fields.
+    """
+    empty = JSONPackageMetadata.model_validate({})
+    assert empty.info is None
+    assert empty.last_serial is None
+    assert empty.urls is None
+    assert empty.vulnerabilities is None
+
+    nested = JSONPackageMetadata.model_validate({"info": {}, "urls": [{}], "vulnerabilities": [{}]})
+    assert nested.info is not None
+    assert nested.info.name is None
+    assert nested.info.downloads is None
+    assert nested.urls is not None
+    assert nested.urls[0].comment_text is None
+    assert nested.urls[0].digests is None
+    assert nested.vulnerabilities is not None
+    assert nested.vulnerabilities[0].id is None
