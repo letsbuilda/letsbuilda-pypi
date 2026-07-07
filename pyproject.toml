@@ -2,48 +2,65 @@
 name = "letsbuilda-pypi"
 version = "5.2.2"
 description = "A wrapper for PyPI's API and RSS feed"
-authors = [{ name = "Bradley Reynolds", email = "bradley.reynolds@darbia.dev" }]
-license = { text = "MIT" }
+authors = [{ name = "Bradley Reynolds", email = "bradley.reynolds@tailstory.dev" }]
+license = "MIT"
+license-files = ["LICENSE"]
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 dependencies = [
-    "httpx",
-    "xmltodict",
-    "pydantic",
+    "httpx>=0.28.1",
+    "xmltodict>=1.0.4",
+    "pydantic>=2.13.4",
 ]
 
 [project.urls]
 repository = "https://github.com/letsbuilda/letsbuilda-pypi/"
 documentation = "https://docs.letsbuilda.dev/letsbuilda-pypi/"
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
-    "pre-commit",
-    "nox",
-    "ruff",
-    "mypy",
-    "types-xmltodict",
-]
-tests = [
-    "pytest",
+    # DX
+    "nox>=2026.4.10",
+    "prek>=0.4.5",
+    # Linters
+    "ruff>=0.15.19",
+    "mypy>=2.0.0",
+    "ty>=0.0.53",
+    # Types
+    "types-xmltodict>=1.0.1.20260518",
 ]
 docs = [
-    "sphinx",
-    "furo",
-    "sphinx-autoapi",
-    "releases",
+    "sphinx>=9.1.0",
+    # Theme
+    "furo>=2025.12.19",
+    # Extensions
+    "sphinx-autoapi>=3.8.0",
+    "releases>=2.1.1",
+]
+tests = [
+    "coverage>=7.14.3",
+    "pytest>=9.1.1",
+    # Extensions
+    "pytest-randomly>=4.1.0",
+    # Reporting
+    "allure-pytest>=2.16.0",
 ]
 
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools >= 77.0.3"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.package-data]
 "letsbuilda.pypi" = ["py.typed"]
 
+[tool.uv]
+# Sync with Dependabot's uv version
+required-version = ">=0.11.8"
+exclude-newer = "P7D"
+
 [tool.ruff]
-target-version = "py312"
 line-length = 120
+cache-dir = ".cache/ruff"
 
 [tool.ruff.lint]
 select = ["ALL"]
@@ -69,10 +86,24 @@ known-first-party = ["letsbuilda.pypi"]
 convention = "numpy"
 
 [tool.mypy]
+strict = true
+namespace_packages = true
+explicit_package_bases = true
+mypy_path = "src"
+pretty = true
+num_workers = 4
+native_parser = true # required by num_workers
 plugins = ["pydantic.mypy"]
+cache_dir = ".cache/mypy"
+
 
 [tool.coverage.run]
-source = ["letsbuilda.pypi"]
+branch = true
+source_pkgs = ["letsbuilda.pypi"]
+source_dirs = ["tests"]
+data_file = ".cache/coverage/.coverage"
 
-[tool.pytest.ini_options]
-addopts = "--strict-markers"
+[tool.pytest]
+strict = true
+junit_family = "xunit1"
+cache_dir = ".cache/pytest"

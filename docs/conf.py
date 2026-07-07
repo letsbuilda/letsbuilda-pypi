@@ -28,7 +28,7 @@ extensions = [
 autoapi_type: str = "python"
 autoapi_add_toctree_entry: bool = False
 autoapi_python_use_implicit_namespaces: bool = True
-autoapi_dirs: list[str] = ["../../src/letsbuilda/"]
+autoapi_dirs: list[str] = ["../src/letsbuilda/"]
 
 intersphinx_mapping = {"python": ("https://docs.python.org/3", None)}
 
@@ -55,16 +55,16 @@ releases_github_path = REPO_LINK.removeprefix("https://github.com/")
 releases_release_uri = f"{REPO_LINK}/releases/tag/v%s"
 
 
-def linkcode_resolve(domain: str, info: dict) -> str:
+def linkcode_resolve(domain: str, info: dict) -> str | None:
     """linkcode_resolve."""
     if domain != "py":
         return None
     if not info["module"]:
         return None
 
-    import importlib
-    import inspect
-    import types
+    import importlib  # noqa: PLC0415
+    import inspect  # noqa: PLC0415
+    import types  # noqa: PLC0415
 
     mod = importlib.import_module(info["module"])
 

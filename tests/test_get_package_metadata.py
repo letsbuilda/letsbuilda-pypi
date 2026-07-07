@@ -3,11 +3,11 @@
 import asyncio
 
 import httpx
-from test_json_api_parsing import JSON_API_DATA
 
 from letsbuilda.pypi import Package
 from letsbuilda.pypi.async_client import PyPIServices as AsyncPyPIServices
 from letsbuilda.pypi.sync_client import PyPIServices as SyncPyPIServices
+from tests.test_json_api_parsing import JSON_API_DATA
 
 
 def _handler(_: httpx.Request) -> httpx.Response:
