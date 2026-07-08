@@ -1,7 +1,6 @@
 """Models for JSON responses."""
 
 from datetime import datetime
-from typing import Literal
 
 from pydantic import BaseModel, Field
 
@@ -86,36 +85,7 @@ class Info(BaseModel):
     version: str | None = None
     yanked: bool | None = None
     yanked_reason: str | None = None
-    dynamic: (
-        list[
-            Literal[
-                "Platform",
-                "Supported-Platform",
-                "Summary",
-                "Description",
-                "Description-Content-Type",
-                "Keywords",
-                "Home-Page",
-                "Download-URL",
-                "Author",
-                "Author-Email",
-                "Maintainer",
-                "Maintainer-Email",
-                "License",
-                "License-Expression",
-                "License-File",
-                "Classifier",
-                "Requires-Dist",
-                "Requires-Python",
-                "Requires-External",
-                "Project-URL",
-                "Provides-Extra",
-                "Provides-Dist",
-                "Obsoletes-Dist",
-            ]
-        ]
-        | None
-    ) = None
+    dynamic: list[str] | None = None
     provides_extra: list[str] | None = None
 
 

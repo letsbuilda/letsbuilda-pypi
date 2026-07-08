@@ -1,6 +1,9 @@
 Changelog
 =========
 
+- :release:`6.0.2 <8th July 2026>`
+- :bug:`-` Make ``Info.dynamic`` an opaque string list instead of a constrained enum
+
 - :release:`6.0.1 <7th July 2026>`
 - :bug:`-` Fix casing on dynamic fields in JSON API responses
 
