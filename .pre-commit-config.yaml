@@ -16,11 +16,11 @@ repos:
       - id: end-of-file-fixer
 
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: 84ed656d5ada0b07830b74fb0fe18b3bc1029441  # frozen: 0.11.26
+    rev: e3e6ef7d9bda544b2e795782dbd7d2a4fbd7eb6d  # frozen: 0.11.32
     hooks:
       - id: uv-lock
 
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
-    rev: e3eebf65325ccc992422292cb7a4baee967cf815  # frozen: v1.26.1
+    rev: 067260dc5fe6ea86b7551bfd6f8b3ba4e6c93129  # frozen: v1.28.0
     hooks:
       - id: zizmor
